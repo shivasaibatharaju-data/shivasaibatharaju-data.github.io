@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shivasai Batharaju — Data &amp; AI Engineer</title>
+<meta name="description" content="Shivasai Batharaju — Data Engineer specializing in scalable cloud data pipelines, AI/ML, and GenAI on AWS, GCP, Snowflake, Airflow, and PySpark." />
+<style>
+  :root{
+    --bg:#04050a; --bg2:#0a0d16;
+    --panel:rgba(255,255,255,0.035); --panel-brd:rgba(255,255,255,0.09);
+    --txt:#e7ecf5; --muted:#8b94a8;
+    --neon:#00f5d4; --neon2:#7b5cff; --neon3:#ff2e88;
+    --glow:0 0 24px rgba(0,245,212,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65;overflow-x:hidden;cursor:none}
+  ::selection{background:var(--neon);color:#03110e}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  section{position:relative;padding:110px 0}
+  .eyebrow{color:var(--neon);font-weight:600;letter-spacing:3px;font-size:12px;
+    text-transform:uppercase;margin-bottom:14px;display:inline-block}
+  h2.title{font-size:clamp(28px,4.4vw,46px);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:18px}
+  .lead{color:var(--muted);max-width:680px;font-size:17px}
+  .grad{background:linear-gradient(110deg,var(--neon),var(--neon2) 50%,var(--neon3));
+    background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shimmer 6s linear infinite}
+  @keyframes shimmer{to{background-position:200% center}}
+
+  /* cursor */
+  .cursor,.cursor-d{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);mix-blend-mode:screen}
+  .cursor{width:8px;height:8px;background:var(--neon);transition:transform .12s}
+  .cursor-d{width:38px;height:38px;border:1px solid rgba(0,245,212,.55);transition:transform .18s ease-out,width .2s,height .2s}
+  .cursor-d.big{width:70px;height:70px;border-color:rgba(123,92,255,.7)}
+  @media(hover:none){.cursor,.cursor-d{display:none}body{cursor:auto}}
+
+  /* scroll progress */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+    background:linear-gradient(90deg,var(--neon),var(--neon2),var(--neon3));box-shadow:0 0 12px var(--neon)}
+
+  /* bg */
+  #stars{position:fixed;inset:0;z-index:-3}
+  .bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;will-change:transform}
+  .orb.a{width:520px;height:520px;background:#0a8c7d;top:-160px;left:-120px}
+  .orb.b{width:460px;height:460px;background:#4b2ec0;bottom:-160px;right:-120px}
+  .orb.c{width:340px;height:340px;background:#a01054;top:40%;left:45%}
+  .grid-fx{position:fixed;inset:0;z-index:-1;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:46px 46px;mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 78%)}
+
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(12px);
+    background:rgba(4,5,10,.5);border-bottom:1px solid transparent;transition:.3s}
+  nav.scrolled{border-bottom:1px solid var(--panel-brd);background:rgba(4,5,10,.82)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{font-weight:800;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--neon)}
+  .nav-links{display:flex;gap:30px}
+  .nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:.2s;position:relative}
+  .nav-links a:hover{color:var(--txt)}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--neon);transition:.25s}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{border:1px solid var(--neon);color:var(--neon);padding:8px 18px;border-radius:30px;font-size:13px;font-weight:600;transition:.25s}
+  .nav-cta:hover{background:var(--neon);color:#03110e;box-shadow:var(--glow)}
+
+  /* hero */
+  .hero{min-height:100vh;display:flex;align-items:center;padding-top:66px}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--panel-brd);
+    background:var(--panel);padding:7px 16px;border-radius:30px;font-size:13px;color:var(--muted);margin-bottom:26px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero h1{font-size:clamp(40px,7vw,82px);font-weight:900;line-height:1.02;letter-spacing:-2px}
+  .hero h1 .ch{display:inline-block;opacity:0;transform:translateY(40px) rotate(8deg);
+    animation:drop .6s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes drop{to{opacity:1;transform:none}}
+  .hero .role{font-size:clamp(20px,3vw,30px);font-weight:700;margin-top:10px}
+  .hero p.intro{color:var(--muted);font-size:18px;max-width:620px;margin:24px 0 34px}
+  .typed{color:var(--neon);border-right:2px solid var(--neon);padding-right:3px}
+  .btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{padding:14px 28px;border-radius:30px;font-weight:600;font-size:15px;transition:.25s;cursor:none;
+    display:inline-flex;align-items:center;gap:9px;will-change:transform}
+  .btn-primary{background:linear-gradient(110deg,var(--neon),var(--neon2));color:#03110e;box-shadow:0 8px 30px rgba(0,245,212,.25)}
+  .btn-primary:hover{box-shadow:0 14px 40px rgba(0,245,212,.45)}
+  .btn-ghost{border:1px solid var(--panel-brd);color:var(--txt);background:var(--panel)}
+  .btn-ghost:hover{border-color:var(--neon);color:var(--neon)}
+  .hero-stats{display:flex;gap:40px;margin-top:54px;flex-wrap:wrap}
+  .hstat .n{font-size:32px;font-weight:800}
+  .hstat .n span{color:var(--neon)}
+  .hstat .l{font-size:13px;color:var(--muted);letter-spacing:.5px}
+
+  /* marquee */
+  .marquee{border-top:1px solid var(--panel-brd);border-bottom:1px solid var(--panel-brd);
+    padding:22px 0;overflow:hidden;white-space:nowrap;background:rgba(255,255,255,.015)}
+  .marquee .track{display:inline-block;animation:scrollx 28s linear infinite}
+  .marquee:hover .track{animation-play-state:paused}
+  .marquee span{font-size:24px;font-weight:800;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.28);margin:0 28px}
+  .marquee span.on{-webkit-text-stroke:1px var(--neon);color:transparent}
+  @keyframes scrollx{to{transform:translateX(-50%)}}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:start}
+  .about-grid p{color:var(--muted);font-size:16.5px;margin-bottom:16px}
+  .about-grid b{color:var(--txt)}
+  .info-card{background:var(--panel);border:1px solid var(--panel-brd);border-radius:18px;padding:26px}
+  .info-row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--panel-brd);font-size:14.5px}
+  .info-row:last-child{border-bottom:none}
+  .info-row span:first-child{color:var(--muted)}
+  .info-row span:last-child{color:var(--txt);font-weight:600;text-align:right}
+
+  /* tilt cards shared */
+  .tilt{transform-style:preserve-3d;transition:transform .15s ease-out;will-change:transform}
+  .tilt .spot{position:absolute;inset:0;border-radius:inherit;opacity:0;transition:.3s;pointer-events:none;
+    background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(0,245,212,.16),transparent 60%)}
+  .tilt:hover .spot{opacity:1}
+
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .metric{background:var(--panel);border:1px solid var(--panel-brd);border-radius:18px;padding:30px 24px;text-align:center;position:relative;overflow:hidden}
+  .metric .big{font-size:46px;font-weight:900;line-height:1}
+  .metric .lbl{font-weight:700;margin-top:8px;font-size:15px}
+  .metric .sub{color:var(--muted);font-size:13px;margin-top:6px}
+
+  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .skill-card{background:var(--panel);border:1px solid var(--panel-brd);border-radius:18px;padding:26px;position:relative;overflow:hidden}
+  .skill-card h3{font-size:18px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .skill-card .ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--neon),var(--neon2));color:#03110e;font-size:18px;font-weight:800}
+  .skill-card p{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:12px;padding:5px 11px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid var(--panel-brd);color:var(--txt)}
+
+  .tl{position:relative;margin-top:20px;padding-left:34px}
+  .tl::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--neon),var(--neon2),transparent)}
+  .tl-item{position:relative;margin-bottom:44px}
+  .tl-item::before{content:'';position:absolute;left:-34px;top:4px;width:18px;height:18px;border-radius:50%;
+    background:var(--bg);border:3px solid var(--neon);box-shadow:var(--glow)}
+  .tl-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:baseline}
+  .tl-role{font-size:20px;font-weight:800}
+  .tl-co{color:var(--neon);font-weight:600}
+  .tl-date{color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.5px}
+  .tl-tags{color:var(--muted);font-size:12.5px;font-style:italic;margin:6px 0 14px}
+  .tl-item ul{list-style:none;display:grid;gap:9px}
+  .tl-item li{position:relative;padding-left:22px;color:var(--muted);font-size:14.5px}
+  .tl-item li::before{content:'▹';position:absolute;left:0;color:var(--neon)}
+
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .proj{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+    border:1px solid var(--panel-brd);border-radius:20px;padding:30px;position:relative;overflow:hidden}
+  .proj::after{content:'';position:absolute;top:-2px;left:-2px;right:-2px;height:3px;
+    background:linear-gradient(90deg,var(--neon),var(--neon2),var(--neon3));transform:scaleX(0);transform-origin:left;transition:.4s}
+  .proj:hover::after{transform:scaleX(1)}
+  .proj .ptop{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .proj .ptag{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);font-weight:700}
+  .proj .plink{color:var(--muted);font-size:13px;font-weight:600;transition:.2s}
+  .proj .plink:hover{color:var(--neon)}
+  .proj h3{font-size:22px;font-weight:800;margin-bottom:6px}
+  .proj .psub{color:var(--neon2);font-size:13.5px;font-weight:600;margin-bottom:14px}
+  .proj p{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+  .proj .stack{display:flex;flex-wrap:wrap;gap:7px}
+
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .edu-card{background:var(--panel);border:1px solid var(--panel-brd);border-radius:18px;padding:28px;position:relative;overflow:hidden}
+  .edu-card .deg{font-size:19px;font-weight:800}
+  .edu-card .sch{color:var(--neon);font-weight:600;margin:4px 0}
+  .edu-card .meta{color:var(--muted);font-size:13.5px}
+  .certs{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+  .cert{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--panel-brd);border-radius:14px;padding:16px 20px;flex:1 1 280px}
+  .cert .cico{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--neon3),var(--neon2));display:grid;place-items:center;font-weight:800;color:#fff;flex-shrink:0}
+  .cert .cname{font-weight:700;font-size:15px}
+  .cert .cby{color:var(--muted);font-size:12.5px}
+
+  .contact{text-align:center}
+  .contact h2{font-size:clamp(30px,5vw,54px)}
+  .contact .lead{margin:0 auto 36px}
+  .contact-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .cmethods{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:46px;color:var(--muted);font-size:14px}
+  .cmethods a{display:flex;align-items:center;gap:8px;transition:.2s}
+  .cmethods a:hover{color:var(--neon)}
+
+  footer{border-top:1px solid var(--panel-brd);padding:30px 0;text-align:center;color:var(--muted);font-size:13px}
+
+  @media(max-width:880px){
+    .nav-links{display:none}
+    .about-grid,.edu-grid{grid-template-columns:1fr}
+    .metrics{grid-template-columns:1fr 1fr}
+    .skill-grid,.proj-grid{grid-template-columns:1fr}
+    section{padding:80px 0}
+  }
+  @media(max-width:520px){.metrics{grid-template-columns:1fr}.hero-stats{gap:26px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-d" id="curD"></div>
+
+<canvas id="stars"></canvas>
+<div class="bg-fx"><div class="orb a" data-depth="0.5"></div><div class="orb b" data-depth="0.8"></div><div class="orb c" data-depth="0.3"></div></div>
+<div class="grid-fx"></div>
+
+<nav id="nav">
+  <div class="wrap nav-in">
+    <div class="brand">Shiva<b>.</b>Batharaju</div>
+    <div class="nav-links">
+      <a href="#about">About</a><a href="#impact">Impact</a><a href="#skills">Skills</a>
+      <a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a>
+    </div>
+    <a href="#contact" class="nav-cta" data-cursor>Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="badge reveal"><span class="dot"></span> Available for Data &amp; AI Engineering roles</div>
+    <h1 id="heroName">Shivasai Batharaju</h1>
+    <div class="role reveal">I build <span class="typed" id="typed"></span></div>
+    <p class="intro reveal">Data Engineer turning complex, high-volume data into reliable, scalable intelligence. I design end-to-end ETL/ELT pipelines and AI-powered products across AWS, GCP, Snowflake, Airflow, and PySpark — delivering measurable impact in healthcare, fintech, and education.</p>
+    <div class="btns reveal">
+      <a href="#projects" class="btn btn-primary" data-magnetic data-cursor>View my work →</a>
+      <a href="ShivaSai_Batharaju_Data_Engineer.pdf" class="btn btn-ghost" data-magnetic data-cursor download>⬇ Download Résumé</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="hstat"><div class="n"><span>4+</span></div><div class="l">YEARS EXPERIENCE</div></div>
+      <div class="hstat"><div class="n"><span>4</span></div><div class="l">FLAGSHIP PROJECTS</div></div>
+      <div class="hstat"><div class="n"><span>60%</span></div><div class="l">LATENCY REDUCED</div></div>
+      <div class="hstat"><div class="n"><span>DP-203</span></div><div class="l">AZURE CERTIFIED</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="track" id="track"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow reveal">01 — About</span>
+    <h2 class="title reveal">Turning data into <span class="grad">smart, scalable</span> solutions</h2>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm a Data Engineer with <b>4+ years</b> designing cloud-based data platforms, scalable ETL/ELT pipelines, and integration solutions. I build reliable workflows that improve data quality, optimize large-scale processing, and power analytics across <b>healthcare and enterprise</b> environments.</p>
+        <p>Currently at <b>Express Scripts (Cigna Group)</b>, I process healthcare claims, pharmacy, and operational datasets using Python, PySpark, Airflow, Snowflake, and BigQuery — building pipelines with retries, validation, and SLA alerting that downstream BI and analytics teams depend on.</p>
+        <p>I've recently expanded into <b>AI-powered applications</b>, designing and deploying <b>AI Health Vault</b>, a healthcare GenAI platform built with FastAPI, Next.js, and LLM integration. I love working at the intersection of <b>data engineering and machine learning</b> — from real-time pipelines to fraud detection and recommendation systems.</p>
+      </div>
+      <div class="info-card tilt reveal"><div class="spot"></div>
+        <div class="info-row"><span>Location</span><span>Cleveland, OH 🇺🇸</span></div>
+        <div class="info-row"><span>Current Role</span><span>Data Engineer @ Cigna</span></div>
+        <div class="info-row"><span>Experience</span><span>4+ Years</span></div>
+        <div class="info-row"><span>Focus</span><span>Data Eng · ML/AI · Cloud</span></div>
+        <div class="info-row"><span>Open to</span><span>Full-time · Remote</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="wrap">
+    <span class="eyebrow reveal">02 — Impact</span>
+    <h2 class="title reveal">High-impact results, <span class="grad">measured</span></h2>
+    <p class="lead reveal" style="margin-bottom:46px">Across healthcare, financial services, and education, my work delivered measurable performance gains and operational efficiency.</p>
+    <div class="metrics">
+      <div class="metric tilt reveal"><div class="spot"></div><div class="big grad" data-count="30" data-suffix="%">0%</div><div class="lbl">Fraud Detection</div><div class="sub">Accuracy gain via real-time anomaly detection on transaction streams</div></div>
+      <div class="metric tilt reveal"><div class="spot"></div><div class="big grad" data-count="40" data-suffix="%">0%</div><div class="lbl">Learner Retention</div><div class="sub">Lift from a Learning-DNA collaborative recommendation engine</div></div>
+      <div class="metric tilt reveal"><div class="spot"></div><div class="big grad" data-count="60" data-suffix="%">0%</div><div class="lbl">Query Latency ↓</div><div class="sub">Cut via Firestore sharding &amp; ETL pipeline optimization</div></div>
+      <div class="metric tilt reveal"><div class="spot"></div><div class="big grad" data-count="35" data-suffix="%">0%</div><div class="lbl">Manual Prep ↓</div><div class="sub">Reduced through automated ingestion into S3 &amp; Snowflake</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <span class="eyebrow reveal">03 — Skills</span>
+    <h2 class="title reveal">Technical <span class="grad">expertise</span></h2>
+    <div class="skill-grid">
+      <div class="skill-card tilt reveal"><div class="spot"></div><h3><span class="ico">☁</span> Cloud Platforms</h3><p>Scalable data solutions across AWS &amp; GCP for high-performance analytics at scale.</p><div class="chips"><span class="chip">AWS S3</span><span class="chip">Glue</span><span class="chip">Lambda</span><span class="chip">Redshift</span><span class="chip">CloudWatch</span><span class="chip">BigQuery</span><span class="chip">Composer</span></div></div>
+      <div class="skill-card tilt reveal"><div class="spot"></div><h3><span class="ico">⚡</span> Big Data &amp; Processing</h3><p>Distributed workflows for fast ingestion and dependable high-volume computation.</p><div class="chips"><span class="chip">Apache Spark</span><span class="chip">PySpark</span><span class="chip">Delta Lake</span><span class="chip">Kafka</span><span class="chip">Hadoop</span></div></div>
+      <div class="skill-card tilt reveal"><div class="spot"></div><h3><span class="ico">🗄</span> Data Platforms &amp; DB</h3><p>Warehousing, modeling, and validation across staging, warehouse, and reporting layers.</p><div class="chips"><span class="chip">Snowflake</span><span class="chip">Databricks</span><span class="chip">PostgreSQL</span><span class="chip">SQL Server</span><span class="chip">MySQL</span></div></div>
+      <div class="skill-card tilt reveal"><div class="spot"></div><h3><span class="ico">🔀</span> ETL &amp; Orchestration</h3><p>End-to-end, automated, maintainable pipelines with strong operational reliability.</p><div class="chips"><span class="chip">Apache Airflow</span><span class="chip">dbt</span><span class="chip">AWS Glue</span><span class="chip">ETL/ELT</span><span class="chip">Data Modeling</span></div></div>
+      <div class="skill-card tilt reveal"><div class="spot"></div><h3><span class="ico">🤖</span> ML / AI &amp; GenAI</h3><p>NLP, predictive modeling, and LLM-powered products that automate insight generation.</p><div class="chips"><span class="chip">LLM Integration</span><span class="chip">FastAPI</span><span class="chip">NLP</span><span class="chip">Sentiment Analysis</span><span class="chip">TensorFlow</span></div></div>
+      <div class="skill-card tilt reveal"><div class="spot"></div><h3><span class="ico">⚙</span> DevOps &amp; Languages</h3><p>Production-grade delivery with CI/CD, containerization, and clean version control.</p><div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Bash</span><span class="chip">Docker</span><span class="chip">Terraform</span><span class="chip">GitHub Actions</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <span class="eyebrow reveal">04 — Experience</span>
+    <h2 class="title reveal">Professional <span class="grad">journey</span></h2>
+    <div class="tl">
+      <div class="tl-item reveal">
+        <div class="tl-head"><div><span class="tl-role">Data Engineer</span> · <span class="tl-co">Express Scripts (Cigna Group)</span></div><span class="tl-date">JAN 2024 — PRESENT</span></div>
+        <div class="tl-tags">Healthcare &amp; PBM · AWS · GCP · Python · SQL · Airflow · PySpark · Snowflake · BigQuery</div>
+        <ul>
+          <li>Built and maintained ETL/ELT pipelines processing healthcare claims, pharmacy, and operational datasets for analytics and reporting teams.</li>
+          <li>Developed automated ingestion from APIs, flat files, and databases into AWS S3 and Snowflake, reducing manual data prep effort by 35%.</li>
+          <li>Engineered Airflow DAGs with retries, dependency checks, logging, and failure alerts to improve reliability and reduce missed SLA incidents.</li>
+          <li>Optimized SQL queries and Spark transformations, improving processing time by 30% for high-volume healthcare datasets.</li>
+          <li>Implemented validation checks for nulls, duplicates, schema drift, and source-to-target count mismatches before publishing data.</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-head"><div><span class="tl-role">Data Engineer</span> · <span class="tl-co">Grasp Technologies Pvt. Ltd.</span></div><span class="tl-date">MAR 2021 — NOV 2022</span></div>
+        <div class="tl-tags">Technology Services · AWS · Azure · Python · SQL · PySpark · Spark · Snowflake · Docker</div>
+        <ul>
+          <li>Built data integration workflows with Python, Azure Data Factory, and PySpark to move structured and semi-structured data into cloud platforms.</li>
+          <li>Created reusable ETL scripts, SQL transformation logic, and stored procedures to standardize data and improve consistency across layers.</li>
+          <li>Tuned Spark jobs by optimizing joins and filtering early, improving performance across large datasets.</li>
+          <li>Supported data migration with mapping docs, source-to-target validation, and reconciliation of mismatched records.</li>
+          <li>Partnered with analysts to build curated datasets powering Power BI and Tableau dashboards.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <span class="eyebrow reveal">05 — Projects</span>
+    <h2 class="title reveal">Things I've <span class="grad">built</span></h2>
+    <p class="lead reveal" style="margin-bottom:46px">A selection of production platforms, leadership projects, and research builds.</p>
+    <div class="proj-grid">
+      <div class="proj tilt reveal"><div class="spot"></div>
+        <div class="ptop"><span class="ptag">Healthcare GenAI · Flagship</span><a class="plink" href="https://ai-health-vault.vercel.app" target="_blank" rel="noopener" data-cursor>Live Demo ↗</a></div>
+        <h3>AI Health Vault</h3><div class="psub">Full-Stack GenAI · Python · FastAPI · Next.js · LLM</div>
+        <p>A full-stack healthcare document intelligence platform letting users upload medical records, generate AI clinical summaries, and manage health data via a SaaS dashboard. FastAPI backend with modular REST endpoints for PDF ingestion, LLM summarization, and retrieval-grounded Q&amp;A powered by Claude — deployed on Render + Vercel with CI/CD.</p>
+        <div class="stack"><span class="chip">FastAPI</span><span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">LLM / Claude</span><span class="chip">REST APIs</span><span class="chip">Vercel</span></div>
+      </div>
+      <div class="proj tilt reveal"><div class="spot"></div>
+        <div class="ptop"><span class="ptag">Data Platform · Lead</span><span class="plink">Indiana Tech</span></div>
+        <h3>MindSpace</h3><div class="psub">Data Engineering &amp; Analytics Lead · Mar–May 2025</div>
+        <p>Led the design of a scalable data platform for a micro-certification ecosystem. Built Firebase + ClickHouse pipelines processing <b>1.2M events/min</b>, a Learning-DNA recommendation engine that lifted retention 40%, and blockchain-backed credential analytics. Added Grafana + Prometheus anomaly detection at 92% accuracy and cut query latency 60%.</p>
+        <div class="stack"><span class="chip">ClickHouse</span><span class="chip">Firebase</span><span class="chip">Grafana</span><span class="chip">Prometheus</span><span class="chip">Recommender</span></div>
+      </div>
+      <div class="proj tilt reveal"><div class="spot"></div>
+        <div class="ptop"><span class="ptag">Security · Research</span><span class="plink">Python</span></div>
+        <h3>Data Security via Steganography</h3><div class="psub">Covert Data Transmission · LSB Encryption</div>
+        <p>Engineered a Python steganography platform that protects sensitive information by embedding encrypted payloads within digital images using LSB techniques. Built the end-to-end pipeline for encryption, extraction, and integrity validation across multiple file formats — a secure, extensible approach to covert data transmission.</p>
+        <div class="stack"><span class="chip">Python</span><span class="chip">Tkinter</span><span class="chip">Pillow (PIL)</span><span class="chip">LSB Steganography</span></div>
+      </div>
+      <div class="proj tilt reveal"><div class="spot"></div>
+        <div class="ptop"><span class="ptag">Computer Vision · Accessibility</span><span class="plink">Android</span></div>
+        <h3>Object Detection for the Visually Impaired</h3><div class="psub">Real-Time Android Accessibility App</div>
+        <p>Developed a real-time Android accessibility app powered by TensorFlow Lite to identify surrounding objects through the smartphone camera. Integrated GPU-optimized inference and text-to-speech feedback for responsive auditory guidance — improving situational awareness, mobility, and user safety.</p>
+        <div class="stack"><span class="chip">Android Studio</span><span class="chip">TensorFlow Lite</span><span class="chip">GPU Acceleration</span><span class="chip">Text-to-Speech</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <span class="eyebrow reveal">06 — Education &amp; Certifications</span>
+    <h2 class="title reveal">Background &amp; <span class="grad">credentials</span></h2>
+    <div class="edu-grid">
+      <div class="edu-card tilt reveal"><div class="spot"></div><div class="deg">M.S. — Information Systems</div><div class="sch">Indiana Institute of Technology, Fort Wayne, IN</div><div class="meta">Graduated May 2025 · GPA 3.6 / 4.0</div></div>
+      <div class="edu-card tilt reveal"><div class="spot"></div><div class="deg">B.Tech — Computer Science &amp; Engineering</div><div class="sch">Bharat Institute of Engineering &amp; Technology, India</div><div class="meta">Graduated August 2022</div></div>
+    </div>
+    <div class="certs">
+      <div class="cert reveal"><div class="cico">Az</div><div><div class="cname">Azure Data Engineer Associate (DP-203)</div><div class="cby">Microsoft Certified</div></div></div>
+      <div class="cert reveal"><div class="cico">Py</div><div><div class="cname">Python</div><div class="cby">HackerRank Certified</div></div></div>
+      <div class="cert reveal"><div class="cico">SQL</div><div><div class="cname">SQL (Advanced)</div><div class="cby">HackerRank Certified</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="eyebrow reveal">07 — Contact</span>
+    <h2 class="reveal">Let's build something <span class="grad">innovative</span></h2>
+    <p class="lead reveal">Looking to strengthen your data foundation, accelerate analytics, or bring AI-driven ideas to life? I'd love to connect.</p>
+    <div class="contact-btns reveal">
+      <a href="mailto:shivasaibatharaju@gmail.com" class="btn btn-primary" data-magnetic data-cursor>✉ Email me</a>
+      <a href="https://www.linkedin.com/in/shivasai-b-517b2740a/" target="_blank" rel="noopener" class="btn btn-ghost" data-magnetic data-cursor>in · LinkedIn</a>
+    </div>
+    <div class="cmethods reveal">
+      <a href="mailto:shivasaibatharaju@gmail.com" data-cursor>✉ shivasaibatharaju@gmail.com</a>
+      <a href="tel:+12164183999" data-cursor>📞 (216) 418-3999</a>
+      <a href="https://github.com/shivasaibatharaju-data" target="_blank" rel="noopener" data-cursor>⌥ github.com/shivasaibatharaju-data</a>
+      <span>📍 Cleveland, OH</span>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Shivasai Batharaju · Data &amp; AI Engineer · Built with passion for clean data.</footer>
+
+<script>
+  // scroll progress + nav
+  const nav=document.getElementById('nav'),prog=document.getElementById('progress');
+  addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',scrollY>30);
+    const h=document.documentElement;
+    prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  });
+
+  // hero name letter drop
+  const hn=document.getElementById('heroName'),txt=hn.textContent;hn.innerHTML='';
+  [...txt].forEach((c,i)=>{const s=document.createElement('span');s.className='ch';
+    s.textContent=c===' '?' ':c;s.style.animationDelay=(i*0.04)+'s';hn.appendChild(s);});
+
+  // custom cursor
+  const cur=document.getElementById('cur'),curD=document.getElementById('curD');
+  let mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my;
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function follow(){dx+=(mx-dx)*.18;dy+=(my-dy)*.18;curD.style.left=dx+'px';curD.style.top=dy+'px';requestAnimationFrame(follow);})();
+  document.querySelectorAll('a,button,[data-cursor],[data-magnetic]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>curD.classList.add('big'));
+    el.addEventListener('mouseleave',()=>curD.classList.remove('big'));
+  });
+
+  // magnetic buttons
+  document.querySelectorAll('[data-magnetic]').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();
+      el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.4}px)`;});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+
+  // 3D tilt + spotlight
+  document.querySelectorAll('.tilt').forEach(el=>{
+    el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+      el.style.transform=`perspective(800px) rotateY(${(px-.5)*9}deg) rotateX(${(.5-py)*9}deg) translateZ(6px)`;
+      const sp=el.querySelector('.spot');if(sp){sp.style.setProperty('--mx',px*100+'%');sp.style.setProperty('--my',py*100+'%');}});
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+
+  // reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // typed roles
+  const roles=['scalable data pipelines.','reliable ETL/ELT systems.','AI-powered platforms.','cloud-native data products.'];
+  const tel=document.getElementById('typed');let ri=0,ci=0,del=false;
+  (function tick(){const w=roles[ri];tel.textContent=del?w.slice(0,ci--):w.slice(0,ci++);let s=del?45:90;
+    if(!del&&ci===w.length+1){del=true;s=1500;}else if(del&&ci===0){del=false;ri=(ri+1)%roles.length;s=300;}setTimeout(tick,s);})();
+
+  // marquee
+  const items=['Python','SQL','PySpark','Apache Airflow','Snowflake','AWS','GCP','BigQuery','Databricks','dbt','Kafka','Docker','Terraform','FastAPI','LLM / GenAI','Spark'];
+  const track=document.getElementById('track');
+  const build=()=>items.map((t,i)=>`<span class="${i%3===0?'on':''}">${t} ✦</span>`).join('');
+  track.innerHTML=build()+build();
+
+  // count up
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+    const t=e.target,end=+t.dataset.count,suf=t.dataset.suffix||'';let n=0;
+    const step=()=>{n+=Math.ceil(end/40);if(n>=end)n=end;t.textContent=n+suf;if(n<end)requestAnimationFrame(step);};
+    step();cio.unobserve(t);}),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+  // parallax orbs
+  const orbs=[...document.querySelectorAll('.orb')];
+  addEventListener('mousemove',e=>{const cx=(e.clientX/innerWidth-.5),cy=(e.clientY/innerHeight-.5);
+    orbs.forEach(o=>{const d=+o.dataset.depth;o.style.transform=`translate(${cx*60*d}px,${cy*60*d}px)`;});});
+
+  // starfield canvas
+  const cv=document.getElementById('stars'),ctx=cv.getContext('2d');let stars=[];
+  function resize(){cv.width=innerWidth;cv.height=innerHeight;
+    stars=Array.from({length:Math.min(120,Math.floor(innerWidth/12))},()=>({
+      x:Math.random()*cv.width,y:Math.random()*cv.height,z:Math.random()*.8+.2,
+      vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12}));}
+  resize();addEventListener('resize',resize);
+  function draw(){ctx.clearRect(0,0,cv.width,cv.height);
+    for(const s of stars){s.x+=s.vx;s.y+=s.vy;
+      if(s.x<0)s.x=cv.width;if(s.x>cv.width)s.x=0;if(s.y<0)s.y=cv.height;if(s.y>cv.height)s.y=0;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.z*1.4,0,6.283);
+      ctx.fillStyle=`rgba(0,245,212,${s.z*.5})`;ctx.fill();}
+    // connect nearby
+    for(let i=0;i<stars.length;i++)for(let j=i+1;j<stars.length;j++){
+      const a=stars[i],b=stars[j],dxx=a.x-b.x,dyy=a.y-b.y,dd=dxx*dxx+dyy*dyy;
+      if(dd<9000){ctx.strokeStyle=`rgba(123,92,255,${.12*(1-dd/9000)})`;ctx.lineWidth=.5;
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+    requestAnimationFrame(draw);}
+  draw();
+</script>
+</body>
+</html>
