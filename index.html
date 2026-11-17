@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shiva Sai Batharaju, Data Engineer</title>
-<meta name="description" content="Data engineer with 4+ years building batch and streaming pipelines on GCP and AWS. Spark, Airflow, BigQuery and production ML in healthcare at Express Scripts (Cigna Group).">
+<meta name="description" content="Data engineer with 4+ years building batch and real-time ETL/ELT pipelines on Snowflake, dbt, Databricks, Spark and Airflow across GCP, AWS and Azure, in healthcare at Express Scripts (Cigna Group).">
 <link rel="canonical" href="https://shivasaibatharaju-data.github.io/">
 <meta property="og:title" content="Shiva Sai Batharaju, Data Engineer">
-<meta property="og:description" content="Batch and streaming pipelines on GCP and AWS. 500+ GB a day through Spark, on-time SLA from 78% to 98%, ML in production under HIPAA.">
+<meta property="og:description" content="ETL/ELT pipelines on Snowflake, dbt, Databricks, Spark and Airflow. On-time SLA from 78% to 98%, 500+ GB a day 3x faster.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shivasaibatharaju-data.github.io/">
 <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Shiva Sai Batharaju","jobTitle":"Data Engineer","url":"https://shivasaibatharaju-data.github.io/","worksFor":{"@type":"Organization","name":"Express Scripts (Cigna Group)"},"address":{"@type":"PostalAddress","addressLocality":"Cleveland","addressRegion":"OH"},"email":"mailto:shivasaibatharaju@gmail.com","sameAs":["https://github.com/shivasaibatharaju-data","https://www.linkedin.com/in/shivasai-b-517b2740a/"]}
+{"@context":"https://schema.org","@type":"Person","name":"Shiva Sai Batharaju","jobTitle":"Data Engineer","url":"https://shivasaibatharaju-data.github.io/","worksFor":{"@type":"Organization","name":"Express Scripts (Cigna Group)"},"address":{"@type":"PostalAddress","addressLocality":"Cleveland","addressRegion":"OH"},"email":"mailto:shivasaibatharaju@gmail.com","sameAs":["https://github.com/shivasaibatharaju-data","https://www.linkedin.com/in/shiva-saii"]}
 </script>
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <style>
@@ -246,7 +246,7 @@ h1{font-size:clamp(36px,4.7vw,60px);line-height:1.06;letter-spacing:-.032em}
   <div class="wrap home">
     <div>
       <h1 data-in>Data engineer building batch and streaming pipelines for healthcare.</h1>
-      <p class="lead" data-in>I'm Shiva. For four years I've built pipelines on GCP and AWS with Python, SQL, Spark and Airflow. At Express Scripts (Cigna Group) my jobs process more than 500 GB a day, and I've put ML models into production behind CI/CD and Kubernetes in a HIPAA-regulated environment.</p>
+      <p class="lead" data-in>I'm Shiva. For four years I've built batch and real-time ETL/ELT pipelines with Python, SQL and Spark on Snowflake, dbt, Databricks and BigQuery, orchestrated with Airflow. At Express Scripts (Cigna Group) I model healthcare data into star schemas, test it before anyone reads it, and run jobs that process more than 500 GB a day.</p>
       <div class="acts" data-in>
         <a class="btn" href="mailto:shivasaibatharaju@gmail.com?subject=Data%20Engineer%20role">Email Shiva <svg class="ic"><use href="#i-right"/></svg></a>
         <a class="lk" href="assets/ShivaSai_Batharaju_Resume.pdf" target="_blank" rel="noopener">Download résumé <svg class="ic dn"><use href="#i-file"/></svg></a>
@@ -255,6 +255,7 @@ h1{font-size:clamp(36px,4.7vw,60px);line-height:1.06;letter-spacing:-.032em}
         <div><dt>Currently</dt><dd>Data Engineer at Express Scripts (Cigna Group), since January 2024</dd></div>
         <div><dt>Based in</dt><dd>Cleveland, Ohio</dd></div>
         <div><dt>Education</dt><dd>M.S. Information Systems, Indiana Tech, 2025</dd></div>
+        <div><dt>Works in</dt><dd>Snowflake, dbt, Databricks, Spark, Airflow, BigQuery</dd></div>
         <div><dt>Certified</dt><dd>Microsoft Azure Data Engineer Associate (DP-203)</dd></div>
         <div><dt>Open to</dt><dd>Data engineering roles</dd></div>
       </dl>
@@ -318,14 +319,15 @@ h1{font-size:clamp(36px,4.7vw,60px);line-height:1.06;letter-spacing:-.032em}
 <div class="view" id="v-tools" tabindex="-1">
   <div class="wrap">
     <h2>Tools I use, by pipeline stage</h2>
-    <p class="lead">Languages across all of it: Python, SQL, Scala and Bash.</p>
+    <p class="lead">Languages across all of it: Python, SQL, Scala and Bash. Clouds: GCP, AWS and Azure.</p>
     <dl class="stages">
       <div><dt>Ingest</dt><dd class="t">Pub/Sub, Dataflow, Apache Beam, AWS S3, Azure Blob Storage, ADLS Gen2, Salesforce</dd><dd class="d">Streamed customer feedback from web and social into BigQuery. Pulled 8 sources into one data lake.</dd></div>
-      <div><dt>Process</dt><dd class="t">Apache Spark (PySpark, Spark SQL), Scala, Hadoop, Hive</dd><dd class="d">500+ GB a day on YARN, 3× faster than the Hive and Teradata queries it replaced.</dd></div>
-      <div><dt>Orchestrate</dt><dd class="t">Apache Airflow, Cloud Composer</dd><dd class="d">Raised on-time SLA delivery from 78% to 98% and cut manual ETL work by 40%.</dd></div>
-      <div><dt>Store</dt><dd class="t">BigQuery, Oracle, MySQL, Cassandra, Teradata</dd><dd class="d">Migrated 200M+ records from Sybase to Oracle with every record reconciled.</dd></div>
-      <div><dt>Model</dt><dd class="t">Vertex AI, Hugging Face Transformers (BERT), scikit-learn, MLflow</dd><dd class="d">A fine-tuned BERT classifier on 1M+ interactions a month, and TF-IDF classifiers at 94% accuracy.</dd></div>
-      <div><dt>Ship and run</dt><dd class="t">Docker, Kubernetes (GKE, EKS), Cloud Build, FastAPI, CI/CD</dd><dd class="d">Model releases in 3 days instead of 2 weeks. 99.9% serving availability.</dd></div>
+      <div><dt>Warehouse</dt><dd class="t">Snowflake, BigQuery, dbt (incremental models, snapshots, tests, docs)</dd><dd class="d">Snowflake ELT into fact and dimension tables, with clustering keys and warehouse sizing tuned for query time and cost. dbt staging and mart models with tests and lineage.</dd></div>
+      <div><dt>Lakehouse</dt><dd class="t">Databricks, Delta Lake, Apache Spark (PySpark, Spark SQL), Scala, Hadoop, Hive</dd><dd class="d">Bronze, silver and gold layers with Delta Lake MERGE upserts. 500+ GB a day on YARN, 3× faster than the Hive and Teradata queries it replaced.</dd></div>
+      <div><dt>Model the data</dt><dd class="t">Dimensional modeling, star schema, SCD Type 2, source-to-target mapping</dd><dd class="d">SCD Type 2 history through dbt snapshots, and unique, not_null and relationship tests before data is published.</dd></div>
+      <div><dt>Orchestrate</dt><dd class="t">Apache Airflow, Cloud Composer, Databricks Workflows</dd><dd class="d">Raised on-time SLA delivery from 78% to 98% and cut manual ETL work by 40%, with failure alerts and retry handling.</dd></div>
+      <div><dt>Store</dt><dd class="t">Oracle, MySQL, Cassandra, Teradata</dd><dd class="d">Migrated 200M+ records from Sybase to Oracle with every record reconciled.</dd></div>
+      <div><dt>Ship and run</dt><dd class="t">Git/GitHub, CI/CD (Cloud Build), Docker, Kubernetes (GKE, EKS), MLflow, FastAPI, Vertex AI</dd><dd class="d">Model releases in 3 days instead of 2 weeks. 99.9% serving availability. BERT and TF-IDF NLP pipelines in production.</dd></div>
       <div><dt>Clouds</dt><dd class="t">GCP, AWS, Azure</dd><dd class="d">Most of my work is on GCP. Azure Data Engineer Associate (DP-203) certified.</dd></div>
     </dl>
   </div>
@@ -336,20 +338,21 @@ h1{font-size:clamp(36px,4.7vw,60px);line-height:1.06;letter-spacing:-.032em}
   <div class="wrap">
     <h2>Experience</h2>
     <article class="job">
-      <div><h3>Express Scripts (Cigna Group)</h3><p class="meta">Data Engineer<br>January 2024 to present</p></div>
+      <div><h3>Express Scripts (Cigna Group)</h3><p class="meta">Data Engineer<br>January 2024 to present<br>Healthcare (PBM), HIPAA-regulated</p></div>
       <ul>
-        <li>Built Airflow pipelines on Cloud Composer in Python and Bash, loading BigQuery. <b>Cut manual ETL work by 40%</b> and raised on-time SLA delivery <b>from 78% to 98%</b>.</li>
+        <li>Built production ETL/ELT pipelines in Python and Apache Airflow (Cloud Composer) loading BigQuery, with failure alerts and retry handling. <b>Cut manual ETL work by 40%</b> and raised on-time SLA delivery <b>from 78% to 98%</b>.</li>
+        <li>Built <b>Snowflake ELT</b> for healthcare analytics: loaded raw files from cloud storage and wrote SQL transformations into fact and dimension tables in a <b>star schema</b>, then tuned clustering keys and warehouse sizing to cut query time and compute cost.</li>
+        <li>Developed <b>dbt</b> staging and mart models on Snowflake: incremental models for new and changed rows, snapshots for <b>SCD Type 2</b> history, and data quality tests (unique, not_null, relationships) with docs and lineage.</li>
         <li>Deployed Scala and Spark jobs on YARN that process <b>500+ GB of batch data a day</b>, running <b>3× faster</b> than the Hive and Teradata queries they replaced, through partitioning and Spark SQL plan tuning.</li>
-        <li>Built Apache Beam pipelines on Dataflow that stream customer feedback from web and social sources into BigQuery for near-real-time dashboards.</li>
-        <li>Fine-tuned a BERT classifier on Vertex AI to score sentiment across <b>1M+ member interactions a month</b> for product and clinical teams.</li>
-        <li>Set up ML CI/CD with MLflow, Cloud Build and GKE, including automated validation gates. Model release time went <b>from 2 weeks to 3 days</b>.</li>
-        <li>Built TF-IDF text classification pipelines that sort <b>500K+ healthcare feedback records a month</b> into operational categories at <b>94% accuracy</b>.</li>
-        <li>Configured Kubernetes autoscaling on GKE and EKS for model serving, holding <b>99.9% availability</b> through peak enrollment periods.</li>
+        <li>Built Apache Beam pipelines on Dataflow that stream web and social feedback into BigQuery for near-real-time dashboards.</li>
+        <li>Set up CI/CD with Cloud Build, MLflow and GKE, including automated validation gates. Model release time went <b>from 2 weeks to 3 days</b>, and GKE and EKS autoscaling held <b>99.9% availability</b> through peak enrollment.</li>
+        <li>Productionized NLP pipelines on Vertex AI: fine-tuned BERT to score sentiment on <b>1M+ member interactions a month</b>, and classified <b>500K+ feedback records a month</b> at <b>94% accuracy</b> with TF-IDF.</li>
       </ul>
     </article>
     <article class="job">
-      <div><h3>Grasp Technologies Pvt. Ltd.</h3><p class="meta">Data Engineer, India<br>March 2021 to November 2022</p></div>
+      <div><h3>Grasp Technologies Pvt. Ltd.</h3><p class="meta">Data Engineer, India<br>March 2021 to November 2022<br>Technology services</p></div>
       <ul>
+        <li>Built <b>Databricks lakehouse</b> pipelines in PySpark with bronze, silver and gold (medallion) layers, using <b>Delta Lake MERGE</b> for incremental upserts and Databricks Workflows for scheduling.</li>
         <li>Wrote Spark and Scala jobs on Hadoop and Hive for text processing over multi-terabyte datasets. Run time fell <b>from 8 hours to under 3</b>.</li>
         <li>Built Python ingestion pipelines from Salesforce, AWS S3 and Azure Blob Storage/ADLS Gen2, consolidating <b>8 sources into one data lake</b> used by 100+ analysts.</li>
         <li>Migrated <b>200M+ records</b> from Sybase to Oracle using mapping documents and SQL transformation scripts, and reconciled 100% of records with no data loss.</li>
@@ -363,6 +366,7 @@ h1{font-size:clamp(36px,4.7vw,60px);line-height:1.06;letter-spacing:-.032em}
       <div><dt>May 2025</dt><dd><b>M.S., Information Systems</b>, Indiana Tech, Fort Wayne, IN. GPA 3.6/4.0.</dd></div>
       <div><dt>August 2022</dt><dd><b>B.Tech., Computer Science and Engineering</b>, Bharat Institute of Engineering and Technology, India.</dd></div>
       <div><dt>Microsoft Certified</dt><dd><b>Azure Data Engineer Associate</b> (DP-203).</dd></div>
+      <div><dt>HackerRank Certified</dt><dd><b>Python</b> and <b>SQL (Advanced)</b>.</dd></div>
     </dl>
   </div>
 </div>
@@ -421,7 +425,7 @@ h1{font-size:clamp(36px,4.7vw,60px);line-height:1.06;letter-spacing:-.032em}
     <div><button class="copy" id="copy" type="button">Copy address</button></div>
     <div class="ways">
       <a class="lk" href="tel:+12164183999">(216) 418-3999</a>
-      <a class="lk" href="https://www.linkedin.com/in/shivasai-b-517b2740a/" target="_blank" rel="noopener">LinkedIn <svg class="ic"><use href="#i-out"/></svg></a>
+      <a class="lk" href="https://www.linkedin.com/in/shiva-saii" target="_blank" rel="noopener">LinkedIn <svg class="ic"><use href="#i-out"/></svg></a>
       <a class="lk" href="https://github.com/shivasaibatharaju-data" target="_blank" rel="noopener">GitHub <svg class="ic"><use href="#i-out"/></svg></a>
       <a class="lk" href="assets/ShivaSai_Batharaju_Resume.pdf" target="_blank" rel="noopener">Résumé, PDF <svg class="ic dn"><use href="#i-file"/></svg></a>
     </div>
