@@ -39,7 +39,7 @@
   --ok:#0b8f5a; --str:#b25a00; --kw:#6a3fd0;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
@@ -72,10 +72,38 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
 .brand svg{width:22px;height:22px}
-.nav-links{display:flex;gap:4px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
-.nav-links a{padding:7px 12px;border-radius:8px;transition:color .25s,background .25s}
+.nav-links{position:relative;display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.nav-links a{position:relative;z-index:1;padding:7px 12px;border-radius:9px;display:inline-flex;align-items:baseline;gap:7px;transition:color .3s}
+.nav-links a i{font-style:normal;font-size:10px;color:var(--faint);transition:color .3s}
 .nav-links a:hover{color:var(--text)}
-.nav-links a.on{color:var(--accent);background:var(--accent-soft)}
+.nav-links a.on,.nav-links a.on i{color:var(--accent)}
+.nav-ind{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:9px;background:var(--accent-soft);
+  border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);pointer-events:none;
+  transition:transform .6s var(--ease),width .6s var(--ease)}
+
+/* pages */
+main{min-height:calc(100vh - 150px)}
+.view{display:none;outline:0}
+.view.active{display:block}
+.view.leave{animation:vleave .26s ease forwards;pointer-events:none}
+.view.enter{animation:venter .75s var(--ease) backwards}
+@keyframes vleave{to{opacity:0;transform:translate3d(calc(var(--dir,1)*-36px),0,0) scale(.99);filter:blur(4px)}}
+@keyframes venter{from{opacity:0;transform:translate3d(calc(var(--dir,1)*52px),0,0)}}
+.beam{position:fixed;top:0;bottom:0;left:0;width:42vw;z-index:55;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent) 9%,transparent) 60%,color-mix(in srgb,var(--accent-2) 20%,transparent) 97%,var(--accent) 99.6%,transparent)}
+.beam.run{animation:beam .8s cubic-bezier(.5,0,.2,1)}
+.beam.rev{animation-name:beamr}
+@keyframes beam{0%{opacity:0;transform:translateX(-45vw)}18%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateX(104vw)}}
+@keyframes beamr{0%{opacity:0;transform:translateX(104vw) scaleX(-1)}18%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translateX(-45vw) scaleX(-1)}}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:64px}
+.pager a{flex:1;max-width:320px;border:1px solid var(--line);border-radius:14px;padding:15px 18px;display:flex;flex-direction:column;gap:2px;
+  background:color-mix(in srgb,var(--surface) 92%,transparent);transition:border-color .3s,transform .5s var(--ease),box-shadow .4s}
+.pager a.nx{margin-left:auto;text-align:right;border-color:var(--line-2)}
+.pager a:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 16px 36px -22px var(--accent)}
+.pager .mono{color:var(--faint);font-size:11px}
+.pager b{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.pager a.nx b::after{content:" \2192";color:var(--accent)}
+.pager a.pv b::before{content:"\2190  ";color:var(--accent)}
 .nav-r{display:flex;align-items:center;gap:10px}
 .icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:color .25s,border-color .25s}
 .icon-btn:hover{color:var(--text);border-color:var(--line-2)}
@@ -92,7 +120,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn.sm{height:38px;padding:0 14px;font-size:13.5px;border-radius:10px}
 
 /* hero */
-.hero{padding:56px 0 40px}
+.hero{padding-top:48px;padding-bottom:8px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:56px;align-items:center}
 .query{display:inline-block;font-family:var(--mono);font-size:13px;color:var(--muted);
   border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 80%,transparent);border-radius:10px;padding:10px 14px;max-width:100%}
@@ -129,7 +157,13 @@ h1 span{display:block}
 .c-meta{display:flex;flex-wrap:wrap;gap:6px 18px;padding:9px 16px;border-bottom:1px solid var(--line);color:var(--faint);font-size:11.5px}
 .c-meta b{color:var(--muted);font-weight:400}
 .dag{display:block;width:100%;height:auto;padding:8px 8px 0}
-.dag .node rect{fill:var(--surface-2);stroke:var(--line-2);stroke-width:1}
+.dag .node{cursor:pointer;outline:0}
+.dag .node rect{fill:var(--surface-2);stroke:var(--line-2);stroke-width:1;transition:stroke .3s,fill .3s}
+.dag .node:hover rect,.dag .node:focus-visible rect{stroke:var(--accent)}
+.dag .node.sel rect{stroke:var(--accent);stroke-width:1.6;fill:color-mix(in srgb,var(--accent) 14%,var(--surface-2))}
+.c-cap{padding:11px 16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--text);min-height:62px;display:flex;gap:10px;align-items:baseline}
+.c-cap .mono{color:var(--accent);font-size:11px;flex:none}
+.c-cap.swap{animation:rise .45s var(--ease)}
 .dag .node text{fill:var(--text);font-family:var(--mono);font-size:11.5px}
 .dag .node .sub{fill:var(--faint);font-size:9.5px}
 .dag .node .st{fill:var(--ok)}
@@ -138,7 +172,7 @@ h1 span{display:block}
 @keyframes dash{to{stroke-dashoffset:-16}}
 .dag .dot{fill:var(--accent)}
 .dag .dot.g{fill:var(--ok)}
-.log{border-top:1px solid var(--line);padding:12px 16px;height:124px;overflow:hidden;background:var(--bg-2);
+.log{border-top:1px solid var(--line);padding:12px 16px;height:106px;overflow:hidden;background:var(--bg-2);
   display:flex;flex-direction:column;justify-content:flex-end;gap:3px;font-size:11.5px}
 .log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);animation:rise .5s var(--ease)}
 .log div span{color:var(--faint)}
@@ -159,8 +193,11 @@ h1 span{display:block}
 .delta{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--ok);background:color-mix(in srgb,var(--ok) 11%,transparent);padding:3px 7px;border-radius:5px}
 
 /* sections */
-section{padding:104px 0 0}
-.sec-head{margin-bottom:36px;max-width:760px}
+section{padding:56px 0 0}
+.sec-head{margin-bottom:36px;position:relative}
+.sec-head h2,.sec-head p{max-width:760px}
+.sec-head[data-n]::after{content:attr(data-n);position:absolute;right:0;top:-8px;z-index:-1;pointer-events:none;
+  font:600 clamp(96px,15vw,200px)/1 var(--mono);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px var(--line-2);opacity:.75}
 .sec-head .k{color:var(--accent);display:inline-flex;align-items:center;gap:10px}
 .sec-head .k::before{content:"";width:22px;height:1px;background:var(--accent)}
 h2{font-weight:600;font-size:clamp(30px,3.9vw,46px);line-height:1.08;letter-spacing:-.035em;margin-top:14px}
@@ -284,7 +321,7 @@ h2{font-weight:600;font-size:clamp(30px,3.9vw,46px);line-height:1.08;letter-spac
 .edu p{color:var(--muted);font-size:14.5px}
 
 /* contact */
-.contact{margin-top:104px;border:1px solid var(--line-2);border-radius:24px;padding:64px 32px;text-align:center;position:relative;overflow:hidden;
+.contact{margin-top:0;border:1px solid var(--line-2);border-radius:24px;padding:64px 32px;text-align:center;position:relative;overflow:hidden;
   background:radial-gradient(600px 300px at 50% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%),color-mix(in srgb,var(--surface) 92%,transparent)}
 .contact h2{font-size:clamp(34px,5vw,62px);margin-top:22px}
 .contact>p{color:var(--muted);max-width:540px;margin:16px auto 0;font-size:17px}
@@ -294,10 +331,10 @@ h2{font-weight:600;font-size:clamp(30px,3.9vw,46px);line-height:1.08;letter-spac
 .reach{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:32px;color:var(--muted)}
 .reach a{transition:color .25s}
 .reach a:hover{color:var(--accent)}
-footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer.end{margin-top:56px;padding-top:22px;padding-bottom:36px;border-top:1px solid var(--line);color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 /* reveal */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s);will-change:opacity,transform}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
 .rv.in{opacity:1;transform:none}
 
 @media (max-width:1020px){
@@ -306,7 +343,9 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
   .flag{grid-template-columns:1fr}
   .shot{border-left:0;border-top:1px solid var(--line)}
   .edu{grid-template-columns:1fr}
-  .nav-links{display:none}
+  .nav-in{flex-wrap:wrap;height:auto;padding-top:11px;row-gap:8px}
+  .nav-links{order:3;width:100%;justify-content:space-between;padding-bottom:9px}
+  .hint{display:none}
   .tbl,.tbl.wide{grid-column:span 3}
 }
 @media (max-width:640px){
@@ -328,8 +367,14 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
   .shot{padding:20px 0 0 20px}
   .contact{padding:44px 18px;border-radius:20px}
   .sql{font-size:11px;padding:12px}
-  section{padding-top:76px}
-  .contact{margin-top:76px}
+  section{padding-top:40px}
+  .nav-links{font-size:10.5px;gap:0}
+  .nav-links a{padding:6px 5px}
+  .nav-links a i{display:none}
+  .sec-head[data-n]::after{top:-18px;opacity:.5}
+  .pager{margin-top:44px}
+  .pager a{padding:13px 14px}
+  .pager b{font-size:15px}
   .brand span{display:none}
   .lede{font-size:17px}
   .bar-row{grid-template-columns:46px 1fr 76px;gap:8px}
@@ -342,7 +387,7 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
   #flow{display:none}
 }
 </style>
-<noscript><style>.rv{opacity:1;transform:none}.fill{transform:none}</style></noscript>
+<noscript><style>.rv{opacity:1;transform:none}.fill{transform:none}.view{display:block}</style></noscript>
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
@@ -351,11 +396,11 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
 
 <header class="nav" id="nav">
   <div class="wrap nav-in">
-    <a href="#top" class="brand">
+    <a href="#home" data-go="home" class="brand">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 11.2 16 7M7 12.8l9 4.2" stroke="var(--accent)" stroke-width="1.6"/><circle cx="5" cy="12" r="3" fill="var(--accent)"/><circle cx="18.5" cy="6" r="3" fill="var(--text)"/><circle cx="18.5" cy="18" r="3" fill="var(--ok)"/></svg>
       Shiva Sai <span>Batharaju</span></a>
     <nav class="nav-links" aria-label="Sections" id="navlinks">
-      <a href="#impact">impact</a><a href="#stack">stack</a><a href="#experience">experience</a><a href="#projects">projects</a><a href="#contact">contact</a>
+      <span class="nav-ind" id="navind"></span><a href="#home" data-go="home"><i>00</i>home</a><a href="#impact" data-go="impact"><i>01</i>impact</a><a href="#stack" data-go="stack"><i>02</i>stack</a><a href="#experience" data-go="experience"><i>03</i>experience</a><a href="#projects" data-go="projects"><i>04</i>projects</a><a href="#contact" data-go="contact"><i>05</i>contact</a>
     </nav>
     <div class="nav-r">
       <button class="icon-btn" id="theme" aria-label="Switch colour theme">
@@ -369,7 +414,7 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
 </header>
 
 <main id="top">
-<!-- HERO -->
+<div class="view active" id="v-home" tabindex="-1">
 <div class="hero wrap">
   <div class="hero-grid">
     <div class="hero-l">
@@ -380,7 +425,7 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
         <a class="btn primary" href="mailto:shivasaibatharaju@gmail.com?subject=Data%20Engineer%20role">Email me
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn" href="assets/ShivaSai_Batharaju_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
-        <a class="btn" href="#projects">See projects</a>
+        <a class="btn" href="#projects" data-go="projects">See projects</a>
       </div>
       <div class="where mono">
         <span><i class="live"></i>open to data engineering roles</span>
@@ -400,16 +445,17 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
         <path id="e5" class="edge" d="M491 120 L491 202"/>
         <path id="e6" class="edge" d="M452 120 C452 166,336 156,336 202"/>
         <path id="e7" class="edge" d="M276 224 L236 224"/>
-        <g class="node"><rect x="10" y="28" width="90" height="40" rx="9"/><text x="24" y="46">web</text><text class="sub" x="24" y="59">feedback forms</text></g>
-        <g class="node"><rect x="10" y="128" width="90" height="40" rx="9"/><text x="24" y="146">social</text><text class="sub" x="24" y="159">mentions</text></g>
-        <g class="node"><rect x="146" y="76" width="90" height="44" rx="9"/><text x="160" y="96">Pub/Sub</text><text class="sub" x="160" y="109">ingest</text><circle class="st" cx="224" cy="88" r="3"/></g>
-        <g class="node hot"><rect x="276" y="76" width="120" height="44" rx="9"/><text x="290" y="96">Dataflow</text><text class="sub" x="290" y="109">Apache Beam</text><circle class="st" cx="384" cy="88" r="3"/></g>
-        <g class="node"><rect x="436" y="76" width="110" height="44" rx="9"/><text x="450" y="96">BigQuery</text><text class="sub" x="450" y="109">warehouse</text><circle class="st" cx="534" cy="88" r="3"/></g>
-        <g class="node"><rect x="436" y="202" width="110" height="44" rx="9"/><text x="450" y="222">Dashboards</text><text class="sub" x="450" y="235">near real time</text><circle class="st" cx="534" cy="214" r="3"/></g>
-        <g class="node hot"><rect x="276" y="202" width="120" height="44" rx="9"/><text x="290" y="222">BERT</text><text class="sub" x="290" y="235">Vertex AI · sentiment</text><circle class="st" cx="384" cy="214" r="3"/></g>
-        <g class="node"><rect x="126" y="202" width="110" height="44" rx="9"/><text x="140" y="222">GKE</text><text class="sub" x="140" y="235">autoscaled serving</text><circle class="st" cx="224" cy="214" r="3"/></g>
+        <g class="node" data-k="web" tabindex="0" role="button"><rect x="10" y="28" width="90" height="40" rx="9"/><text x="24" y="46">web</text><text class="sub" x="24" y="59">feedback forms</text></g>
+        <g class="node" data-k="social" tabindex="0" role="button"><rect x="10" y="128" width="90" height="40" rx="9"/><text x="24" y="146">social</text><text class="sub" x="24" y="159">mentions</text></g>
+        <g class="node" data-k="pubsub" tabindex="0" role="button"><rect x="146" y="76" width="90" height="44" rx="9"/><text x="160" y="96">Pub/Sub</text><text class="sub" x="160" y="109">ingest</text><circle class="st" cx="224" cy="88" r="3"/></g>
+        <g class="node hot" data-k="dataflow" tabindex="0" role="button"><rect x="276" y="76" width="120" height="44" rx="9"/><text x="290" y="96">Dataflow</text><text class="sub" x="290" y="109">Apache Beam</text><circle class="st" cx="384" cy="88" r="3"/></g>
+        <g class="node" data-k="bigquery" tabindex="0" role="button"><rect x="436" y="76" width="110" height="44" rx="9"/><text x="450" y="96">BigQuery</text><text class="sub" x="450" y="109">warehouse</text><circle class="st" cx="534" cy="88" r="3"/></g>
+        <g class="node" data-k="dash" tabindex="0" role="button"><rect x="436" y="202" width="110" height="44" rx="9"/><text x="450" y="222">Dashboards</text><text class="sub" x="450" y="235">near real time</text><circle class="st" cx="534" cy="214" r="3"/></g>
+        <g class="node hot" data-k="bert" tabindex="0" role="button"><rect x="276" y="202" width="120" height="44" rx="9"/><text x="290" y="222">BERT</text><text class="sub" x="290" y="235">Vertex AI · sentiment</text><circle class="st" cx="384" cy="214" r="3"/></g>
+        <g class="node" data-k="gke" tabindex="0" role="button"><rect x="126" y="202" width="110" height="44" rx="9"/><text x="140" y="222">GKE</text><text class="sub" x="140" y="235">autoscaled serving</text><circle class="st" cx="224" cy="214" r="3"/></g>
         <g id="dots"></g>
       </svg>
+      <div class="c-cap" id="cap" aria-live="polite"><span class="mono">tip</span> Click any node to see what I built with it.</div>
       <div class="log mono" id="log" aria-hidden="true"></div>
       <div class="c-note mono">-- illustrative replay of a pipeline pattern I build. simulated events, not production data.</div>
     </div>
@@ -424,10 +470,11 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     <div class="tile rv spot"><span class="mono lab">availability</span><div class="n"><span data-count="99.9" data-dec="1">99.9</span><small>%</small></div><p>model-serving uptime</p><span class="delta">GKE + EKS</span></div>
   </div>
 </div>
+</div>
 
-<!-- IMPACT -->
-<section id="impact" class="wrap">
-  <div class="sec-head rv">
+<div class="view" id="v-impact" tabindex="-1">
+<section class="wrap">
+  <div class="sec-head rv" data-n="01">
     <span class="mono k">01 // impact</span>
     <h2>What changed after I shipped.</h2>
     <p>Four results from production work, shown as before and after.</p>
@@ -459,10 +506,11 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     </div>
   </div>
 </section>
+</div>
 
-<!-- STACK -->
-<section id="stack" class="wrap">
-  <div class="sec-head rv">
+<div class="view" id="v-stack" tabindex="-1">
+<section class="wrap">
+  <div class="sec-head rv" data-n="02">
     <span class="mono k">02 // stack</span>
     <h2>Every tool, with what it delivered.</h2>
     <p>Walk the pipeline stage by stage. Each one lists what I use there and the result it produced.</p>
@@ -493,10 +541,11 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
       </div></div>
   </div>
 </section>
+</div>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="wrap">
-  <div class="sec-head rv">
+<div class="view" id="v-experience" tabindex="-1">
+<section class="wrap">
+  <div class="sec-head rv" data-n="03">
     <span class="mono k">03 // experience</span>
     <h2>Four years, two production teams.</h2>
   </div>
@@ -533,10 +582,22 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     </ul>
   </article>
 </section>
+<section class="wrap" style="padding-top:64px">
+  <div class="sec-head rv" style="margin-bottom:24px">
+    <span class="mono k">03 // education</span>
+    <h2 style="font-size:clamp(24px,3vw,32px)">Credentials.</h2>
+  </div>
+  <div class="edu" data-stagger>
+    <div class="rv"><span class="tag">May 2025 · GPA 3.6 / 4.0</span><h3>M.S., Information Systems</h3><p>Indiana Tech, Fort Wayne, IN</p></div>
+    <div class="rv"><span class="tag">August 2022</span><h3>B.Tech., Computer Science and Engineering</h3><p>Bharat Institute of Engineering and Technology, India</p></div>
+    <div class="rv"><span class="tag">Microsoft Certified</span><h3>Azure Data Engineer Associate (DP-203)</h3><p>Data storage, processing and security on Azure</p></div>
+  </div>
+</section>
+</div>
 
-<!-- PROJECTS -->
-<section id="projects" class="wrap">
-  <div class="sec-head rv">
+<div class="view" id="v-projects" tabindex="-1">
+<section class="wrap">
+  <div class="sec-head rv" data-n="04">
     <span class="mono k">04 // projects</span>
     <h2>Things I built end to end.</h2>
     <p>One live product you can open right now, plus platform, forecasting and security work.</p>
@@ -598,22 +659,10 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     </div>
   </div>
 </section>
+</div>
 
-<!-- EDUCATION -->
-<section id="education" class="wrap">
-  <div class="sec-head rv">
-    <span class="mono k">05 // education</span>
-    <h2>Credentials.</h2>
-  </div>
-  <div class="edu" data-stagger>
-    <div class="rv"><span class="tag">May 2025 · GPA 3.6 / 4.0</span><h3>M.S., Information Systems</h3><p>Indiana Tech, Fort Wayne, IN</p></div>
-    <div class="rv"><span class="tag">August 2022</span><h3>B.Tech., Computer Science and Engineering</h3><p>Bharat Institute of Engineering and Technology, India</p></div>
-    <div class="rv"><span class="tag">Microsoft Certified</span><h3>Azure Data Engineer Associate (DP-203)</h3><p>Data storage, processing and security on Azure</p></div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="wrap" style="padding-top:0">
+<div class="view" id="v-contact" tabindex="-1">
+<section class="wrap">
   <div class="contact rv">
     <div class="sql" aria-hidden="true"><span class="kw">INSERT INTO</span> your_team (role, engineer)
 <span class="kw">VALUES</span> (<span class="str">'Data Engineer'</span>,
@@ -632,9 +681,11 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
       <span>Cleveland, OH</span>
     </div>
   </div>
-  <footer class="end mono"><span>© <span id="yr">2026</span> Shiva Sai Batharaju</span><span>-- hand-built. no template, no tracker.</span></footer>
 </section>
+</div>
 </main>
+<footer class="end mono wrap"><span>© <span id="yr">2026</span> Shiva Sai Batharaju</span><span class="hint">-- click a stage, or press ← → to move through the pipeline</span></footer>
+<div class="beam" id="beam" aria-hidden="true"></div>
 
 <script>
 (function(){
@@ -648,17 +699,9 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     try{localStorage.setItem('theme',n);}catch(e){}
   });
 
-  /* scroll: progress bar + nav border, one rAF per frame */
-  var nav=document.getElementById('nav'), bar=document.getElementById('progress'), ticking=false;
-  function onScroll(){
-    if(ticking) return; ticking=true;
-    requestAnimationFrame(function(){
-      var h=document.documentElement.scrollHeight-innerHeight;
-      bar.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';
-      nav.classList.toggle('stuck',scrollY>8); ticking=false;
-    });
-  }
-  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  /* nav border on scroll */
+  var nav=document.getElementById('nav'), bar=document.getElementById('progress');
+  addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>8);},{passive:true});
 
   /* clock */
   var clock=document.getElementById('clock');
@@ -789,12 +832,27 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     el.addEventListener('pointermove',function(e){var b=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-b.left)+'px');el.style.setProperty('--my',(e.clientY-b.top)+'px');});
   });
 
-  /* active nav link */
-  var links=[].slice.call(document.querySelectorAll('#navlinks a'));
-  if('IntersectionObserver' in window){
-    var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting) links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id);});});},{rootMargin:'-45% 0px -50% 0px'});
-    links.forEach(function(a){var s=document.querySelector(a.getAttribute('href')); if(s) so.observe(s);});
+  /* clickable DAG nodes */
+  var capText={
+    web:['source','Customer feedback from web forms, one of the inputs I stream into the warehouse.'],
+    social:['source','Social mentions, streamed alongside web feedback for near-real-time dashboards.'],
+    pubsub:['Pub/Sub','The ingest layer. At Grasp I used it with Dataflow to route 500K+ support queries a month.'],
+    dataflow:['Dataflow','Apache Beam pipelines I built that stream feedback into BigQuery.'],
+    bigquery:['BigQuery','The warehouse my Airflow pipelines load. On-time SLA delivery went from 78% to 98%.'],
+    dash:['Dashboards','Product and clinical teams read member feedback in near real time.'],
+    bert:['BERT','A classifier I fine-tuned on Vertex AI. It scores sentiment on 1M+ member interactions a month.'],
+    gke:['GKE','Autoscaled model serving on Kubernetes, holding 99.9% availability through peak enrollment.']
+  }, cap=document.getElementById('cap'), nodes=[].slice.call(document.querySelectorAll('.dag .node'));
+  function pick(g){
+    var c=capText[g.dataset.k]; if(!c) return;
+    nodes.forEach(function(n){n.classList.toggle('sel',n===g);});
+    cap.innerHTML='<span class="mono">'+c[0]+'</span> '+c[1];
+    cap.classList.remove('swap'); void cap.offsetWidth; cap.classList.add('swap');
   }
+  nodes.forEach(function(g){
+    g.addEventListener('click',function(){pick(g);});
+    g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(g);}});
+  });
 
   /* reveal with stagger, bars, counters */
   [].forEach.call(document.querySelectorAll('[data-stagger]'),function(g){[].forEach.call(g.children,function(c,i){c.style.setProperty('--d',(i*0.07)+'s');});});
@@ -806,13 +864,78 @@ footer.end{padding:28px 0 40px;color:var(--faint);display:flex;justify-content:s
     el.classList.add('in');
     [].forEach.call(el.querySelectorAll('.fill'),function(f){f.style.transform='scaleX('+(f.dataset.w/100)+')';});
     if(!reduce) [].forEach.call(el.querySelectorAll('[data-count]'),countUp);
-    setTimeout(function(){el.style.willChange='auto';},1600);
   }
-  var rv=document.querySelectorAll('.rv');
-  if('IntersectionObserver' in window && !reduce){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){activate(e.target);io.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px -7% 0px'});
-    [].forEach.call(rv,function(el){io.observe(el);});
-  } else [].forEach.call(rv,activate);
+  var io=('IntersectionObserver' in window && !reduce)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){activate(e.target);io.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px -5% 0px'}):null;
+  function hideReveals(v){ if(!io) return;
+    [].forEach.call(v.querySelectorAll('.rv'),function(el){el.classList.remove('in');[].forEach.call(el.querySelectorAll('.fill'),function(f){f.style.transform='';});});
+  }
+  function watchReveals(v){
+    var els=[].slice.call(v.querySelectorAll('.rv'));
+    if(!io){els.forEach(activate);return;}
+    els.forEach(function(el){io.observe(el);});
+    setTimeout(function(){els.forEach(function(el){ if(!el.classList.contains('in')){var b=el.getBoundingClientRect(); if(b.top<innerHeight&&b.bottom>0){activate(el);io.unobserve(el);}} });},1100);
+  }
+
+  /* pages: switch only on a click (or arrow key), never on their own */
+  var order=['home','impact','stack','experience','projects','contact'],
+      names={home:'Home',impact:'Impact',stack:'Stack',experience:'Experience',projects:'Projects',contact:'Contact'},
+      views={}, links=[].slice.call(document.querySelectorAll('#navlinks a')), ind=document.getElementById('navind'),
+      beam=document.getElementById('beam'), curV=null, busy=false, pending=null;
+  order.forEach(function(n,i){
+    var v=views[n]=document.getElementById('v-'+n), pv=order[i-1], nx=order[i+1], w=document.createElement('div');
+    w.className='wrap';
+    w.innerHTML='<div class="pager">'+(pv?'<a class="pv" href="#'+pv+'" data-go="'+pv+'"><span class="mono">previous stage</span><b>'+names[pv]+'</b></a>':'')+
+      (nx?'<a class="nx" href="#'+nx+'" data-go="'+nx+'"><span class="mono">next stage · 0'+(i+1)+'</span><b>'+names[nx]+'</b></a>':'')+'</div>';
+    v.appendChild(w);
+  });
+  function setNav(n){
+    links.forEach(function(a){
+      var on=a.dataset.go===n; a.classList.toggle('on',on);
+      if(on){a.setAttribute('aria-current','page');ind.style.width=a.offsetWidth+'px';ind.style.transform='translateX('+a.offsetLeft+'px)';}
+      else a.removeAttribute('aria-current');
+    });
+    bar.style.transition='transform .7s cubic-bezier(.22,1,.36,1)';
+    bar.style.transform='scaleX('+((order.indexOf(n)+1)/order.length)+')';
+  }
+  function enter(n,dir,animate){
+    var v=views[n]; hideReveals(v); v.style.setProperty('--dir',dir); v.classList.add('active');
+    if(animate){v.classList.add('enter');setTimeout(function(){v.classList.remove('enter');},800);}
+    scrollTo({top:0,left:0,behavior:'instant'}); watchReveals(v); curV=n;
+    document.title=(n==='home'?'':names[n]+' · ')+'Shiva Sai Batharaju | Data Engineer';
+  }
+  function go(n,push){
+    if(!views[n]||n===curV) return;
+    if(busy){pending=n;return;}
+    if(push!==false){try{history.pushState(null,'','#'+n);}catch(e){}}
+    setNav(n);
+    var old=views[curV], dir=order.indexOf(n)>order.indexOf(curV)?1:-1;
+    if(reduce){old.classList.remove('active');enter(n,dir,false);return;}
+    busy=true; old.style.setProperty('--dir',dir); old.classList.add('leave');
+    beam.classList.remove('run','rev'); void beam.offsetWidth; beam.classList.add('run'); if(dir<0) beam.classList.add('rev');
+    setTimeout(function(){
+      old.classList.remove('active','leave'); enter(n,dir,true);
+      setTimeout(function(){busy=false; if(pending){var p=pending;pending=null;go(p);}},300);
+    },250);
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('[data-go]'); if(!a) return;
+    e.preventDefault(); go(a.dataset.go);
+  });
+  addEventListener('popstate',function(){go(location.hash.slice(1)||'home',false);});
+  addEventListener('keydown',function(e){
+    if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey) return;
+    var t=e.target; if(t&&t.closest&&t.closest('[role="tab"],input,textarea,select,.dag')) return;
+    var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0, n=order[order.indexOf(curV)+d];
+    if(d&&n){e.preventDefault();go(n);}
+  });
+  (function(){
+    var start=location.hash.slice(1); if(!views[start]) start='home';
+    order.forEach(function(n){views[n].classList.remove('active');});
+    enter(start,1,false); setNav(start);
+    var fix=function(){setNav(curV);};
+    addEventListener('resize',fix); addEventListener('load',fix);
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fix);
+  })();
 })();
 </script>
 </body>
